@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <image id="n3_guf8" name="n3" src="guf81" fileName="Image/r3.png" xy="103,124"/>
+  </displayList>
+</component>

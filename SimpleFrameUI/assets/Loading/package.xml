@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="gcvtw43v">
+  <resources>
+    <component id="guf80" name="LoadMainView.xml" path="/" exported="true"/>
+    <image id="guf81" name="100031.png" path="/Image/"/>
+    <image id="guf82" name="100030.png" path="/Image/"/>
+    <image id="guf83" name="100029.png" path="/Image/"/>
+    <image id="guf84" name="100028.png" path="/Image/"/>
+    <image id="guf85" name="100027.png" path="/Image/"/>
+    <image id="guf86" name="100026.png" path="/Image/"/>
+    <image id="guf87" name="100025.png" path="/Image/"/>
+    <image id="guf88" name="100024.png" path="/Image/"/>
+    <image id="guf89" name="100023.png" path="/Image/"/>
+    <image id="guf8a" name="100022.png" path="/Image/"/>
+    <image id="guf8b" name="100021.png" path="/Image/"/>
+    <image id="guf8c" name="100020.png" path="/Image/"/>
+    <image id="guf8d" name="100019.png" path="/Image/"/>
+    <image id="guf8e" name="100018.png" path="/Image/"/>
+    <image id="guf8f" name="100017.png" path="/Image/"/>
+    <image id="guf8g" name="100016.png" path="/Image/"/>
+    <image id="guf8h" name="100015.png" path="/Image/"/>
+    <image id="guf8i" name="100014.png" path="/Image/"/>
+    <image id="guf8j" name="100013.png" path="/Image/"/>
+    <image id="guf8k" name="100012.png" path="/Image/"/>
+    <image id="guf8l" name="100011.png" path="/Image/"/>
+    <image id="guf8m" name="100010.png" path="/Image/"/>
+    <image id="guf8n" name="100009.png" path="/Image/"/>
+    <image id="guf8o" name="100008.png" path="/Image/"/>
+    <image id="guf8p" name="100007.png" path="/Image/"/>
+    <image id="guf8q" name="100006.png" path="/Image/"/>
+    <image id="guf8r" name="100005.png" path="/Image/"/>
+    <image id="guf8s" name="100004.png" path="/Image/"/>
+    <image id="guf8t" name="100003.png" path="/Image/"/>
+    <image id="guf8u" name="100002.png" path="/Image/"/>
+    <image id="guf8v" name="100001.png" path="/Image/"/>
+    <image id="guf8w" name="100000.png" path="/Image/"/>
+    <movieclip id="guf8x" name="FireClip.jta" path="/Image/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>
