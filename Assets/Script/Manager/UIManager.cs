@@ -108,7 +108,6 @@ public class UIManager : GameInterface
     private Dictionary<string, PanelNode> panelsDict;//<名称，实例>
     public override void StartUp()
     {
-        ManagerType = GameManagerType.UI;
         panelNodes = new List<PanelNode>();
         panelsDict = new Dictionary<string, PanelNode>();
         UIController = new UIControllerManager();

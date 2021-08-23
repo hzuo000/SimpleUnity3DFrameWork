@@ -53,7 +53,6 @@ public class AudioManager : GameInterface
 
     public override void StartUp()
     {
-        ManagerType = GameManagerType.Audio;
         foreach (AudioSource source in Music)
         {
             if (source != null)

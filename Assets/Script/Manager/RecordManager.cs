@@ -14,7 +14,6 @@ public class RecordManager : GameInterface
     private string saveFilePath; //存档路径
     public override void StartUp()
     {
-        ManagerType = GameManagerType.Record;
         SetPath(); //设置存档路径
         LoadRecord();
 

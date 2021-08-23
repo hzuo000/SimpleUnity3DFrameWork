@@ -10,23 +10,19 @@ public enum ManagerStatus
     Started//已开启
 }
 /// <summary>
-/// 管理器类型
+/// 管理器接口
 /// </summary>
-public enum GameManagerType
+public interface IManager
 {
-    NULL = -1,
-
-    Record,//存档
-    UI,//UI
-    MessageCenter,//消息中心
-    Scene,//场景管理
-    Audio,//声音管理
-
+    void StartUp();
+    void UpdateData();
+    void Close();
 }
- public class GameInterface : MonoBehaviour
+
+ public abstract class GameInterface : MonoBehaviour,IManager
 {
-    public GameManagerType ManagerType { get; protected set; }
     public ManagerStatus Status { get; protected set; }
+    
     /// <summary>
     /// 初始化【base在最后调用】
     /// </summary>

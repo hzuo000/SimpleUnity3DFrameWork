@@ -25,7 +25,6 @@ public class SceneLoder : GameInterface
     }
     public override void StartUp()
     {
-        ManagerType = GameManagerType.Scene;
         async = null;
         SceneManager.sceneLoaded += OnSceneLoaded;
         base.StartUp();
