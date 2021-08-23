@@ -57,7 +57,7 @@ public class PanelNode
         {
             return false;
         }
-
+        
         return gGameobject.displayObject.gameObject.activeSelf;
     }
 

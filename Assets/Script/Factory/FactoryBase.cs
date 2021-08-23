@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FactoryBase 
+public abstract class FactoryBase
 {
+    private static FactoryBase _this;
     /// <summary>
-    /// 储存csv读出来的原始数据
+    /// 储存csv读出来的原始数据[行][列]
     /// </summary>
     protected string[][] Content;
     /// <summary>
@@ -19,11 +20,20 @@ public class FactoryBase
 
     public FactoryBase(string fileName)
     {
-        FileName = fileName;
+        FileName = "/"+fileName;
         IDToInfoDic = new Dictionary<int, int>();
+        _this = this;
         InitFactory();
     }
-
+    /// <summary>
+    /// 获取工厂实例对象
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static T GetInstance<T>() where T: FactoryBase
+    {
+        return _this as T;
+    }
     /// <summary>
     /// 初始化工厂
     /// </summary>

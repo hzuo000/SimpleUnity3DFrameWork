@@ -3,6 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// 一个简单的对象池
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class ObjectPool<T> where T : new()
+{
+    private readonly Stack<T> m_Stack = new Stack<T>();
+    private readonly Action<T> m_ActionOnGet;
+    private readonly Action<T> m_ActionOnRelease;
+
+    public int CountAll { get; private set; }
+    public int CountActive { get { return CountAll - CountInactive; } }
+    public int CountInactive { get { return m_Stack.Count; } }
+
+    public ObjectPool(Action<T> actionOnGet, Action<T> actionOnRelease)
+    {
+        m_ActionOnGet = actionOnGet;
+        m_ActionOnRelease = actionOnRelease;
+    }
+
+    //出栈
+    public T Get()
+    {
+        T element;
+        if (m_Stack.Count == 0)
+        {
+            element = new T();
+            CountAll++;
+        }
+        else
+        {
+            element = m_Stack.Pop();
+        }
+        m_ActionOnGet?.Invoke(element);
+        return element;
+    }
+
+    //释放-入栈
+    public void Release(T element)
+    {
+        m_ActionOnRelease?.Invoke(element);
+        m_Stack.Push(element);
+    }
+}
+
 
 public static class Explore//扩展方法
 {

@@ -6,8 +6,8 @@ public enum LanguageType
 {
     NULL = -1,
 
-
-    CN,//简体中文
+    //语言要从1开始排
+    CN = 1,//简体中文
 
 
     COUNT//
@@ -16,8 +16,9 @@ public class LanguageFactory : FactoryBase
 {
     public LanguageFactory(string fn) : base(fn)
     {
-
+        
     }
+
     public string GetWords(int _nID)
     {
         string _str = "";
