@@ -9,6 +9,7 @@ using System;
 [RequireComponent(typeof(MessageCenter))]
 [RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(RecordManager))]
+[RequireComponent(typeof(FactoryManager))]
 public class GameManager : MonoBehaviour
 {
     public static event Action<int, int> GameInitNumAction;//加载进度事件<已加载，总量>
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     public static MessageCenter Observer { get; private set; }//消息中心
     public static SceneLoder Scene { get; private set; }//场景管理
     public static AudioManager Audio { get; private set; }//音效管理
+    public static FactoryManager Factory { get; private set; }//工厂管理（管理各种读表）
 
     private const int targetFPS = 60;//游戏目标帧数
     private void Awake()
@@ -38,16 +40,25 @@ public class GameManager : MonoBehaviour
         Observer = GetComponent<MessageCenter>();
         Scene = GetComponent<SceneLoder>();
         Audio = GetComponent<AudioManager>();
+        Factory = GetComponent<FactoryManager>();
 
         _startSequence = new List<GameInterface>
         {//这里顺序是初始化顺序
             UI,
+            Factory,
             Record,
             Observer,
             Scene,
             Audio,
         };
         StartCoroutine(StartUpMg());
+    }
+    private void OnDestroy()
+    {
+        foreach (var gm in _startSequence)
+        {
+            gm.Close();
+        }
     }
     /// <summary>
     /// 应用退出（ iOS后台挂起后，再kill掉进程不会调用该函数 ）

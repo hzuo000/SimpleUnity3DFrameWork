@@ -1,0 +1,2 @@
+excel导出到csv到stream Assets文件夹后缀大小写要统一
+csv要转为utf-8编码，否则要乱码

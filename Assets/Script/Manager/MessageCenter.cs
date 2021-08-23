@@ -9,12 +9,5 @@ public class MessageCenter : GameInterface
         ManagerType = GameManagerType.MessageCenter;
         base.StartUp();
     }
-    public override void UpdateData()
-    {
-        base.UpdateData();
-    }
-    public override void Close()
-    {
-        base.Close();
-    }
+
 }

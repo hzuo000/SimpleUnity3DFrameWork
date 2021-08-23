@@ -73,7 +73,9 @@ public class PanelNode
         }
     }
 }
-
+/// <summary>
+/// ui管理器【mvc模式】
+/// </summary>
 public class UIControllerManager
 {
     private static UIControllerManager _this;
@@ -112,14 +114,7 @@ public class UIManager : GameInterface
         UIController = new UIControllerManager();
         base.StartUp();
     }
-    public override void UpdateData()
-    {
-        base.UpdateData();
-    }
-    public override void Close()
-    {
-        base.Close();
-    }
+
     /// <summary>
     /// 创建UI界面
     /// </summary>
