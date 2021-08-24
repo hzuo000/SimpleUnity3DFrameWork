@@ -11,6 +11,9 @@ public enum LocalMessage
 {
     Null=-1,
 
+    PlayerOnHit,//人被打了
+
+
     COUNT
 }
 /// <summary>
@@ -20,14 +23,19 @@ public enum ComponentMessage
 {
     Null=-1,
 
+    PlayerStateChange,//人物状态改变【数据更新】
+    OnScreenRed,//ui屏幕闪红
+    OnDamageShow,//ui飘伤害数字
+
+
     COUNT
 }
 
 public class MessageCenter : GameInterface
 {
     private static object LockObj = new object();//注意多线程不要又加又删
-    private Dictionary<ComponentMessage, Action<Message>> ComponentRegisterFuncs;//本地组件回调
-    private Dictionary<LocalMessage, Action<Message>> StageRegisterFuncs;//客户端接收消息过后的回调
+    private Dictionary<ComponentMessage, Action<Message>> ComponentRegisterFuncs;//消息中心向外分发组件消息回调
+    private Dictionary<LocalMessage, Action<Message>> StageRegisterFuncs;//消息中心接收消息过后的回调
     public override void StartUp()
     {
         InitMessageHandler();
@@ -46,7 +54,7 @@ public class MessageCenter : GameInterface
     private void InitMessageHandler()
     {
         StageRegisterFuncs = new Dictionary<LocalMessage, Action<Message>>() {
-            
+            { LocalMessage.PlayerOnHit,HandleMSG_OnPlayerHit },
         };
 
     }
@@ -96,5 +104,17 @@ public class MessageCenter : GameInterface
         {
             StageRegisterFuncs[_msg]?.Invoke(smsg);
         }
+    }
+    /// <summary>
+    /// 消息拆解：玩家被打
+    /// 1.状态改变
+    /// 2.屏幕变红
+    /// 3.飘伤害数字
+    /// </summary>
+    private void HandleMSG_OnPlayerHit(Message message)
+    {
+        ComponentRegisterFuncs[ComponentMessage.PlayerStateChange]?.Invoke(message);
+        ComponentRegisterFuncs[ComponentMessage.OnScreenRed]?.Invoke(message);
+        ComponentRegisterFuncs[ComponentMessage.OnDamageShow]?.Invoke(message);
     }
 }

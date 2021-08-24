@@ -31,7 +31,7 @@ public enum UIMode
     NoNeedBack,
 }
 /// <summary>
-/// ui显示节点
+/// ui显示节点[ui的组件实例实际存储的类]
 /// </summary>
 public class PanelNode
 {
@@ -74,7 +74,7 @@ public class PanelNode
     }
 }
 /// <summary>
-/// ui管理器【mvc模式】
+/// ui控制器管理器【mvc模式】[数据放在controller的派生类中，显示的逻辑写在view的派生类中]
 /// </summary>
 public class UIControllerManager
 {
@@ -85,9 +85,14 @@ public class UIControllerManager
     {
         _this = this;
     }
-    public ControllerT GetControllerByName<ControllerT>(string ctrlName) where ControllerT : IUIController
+    /// <summary>
+    /// 通过名字获取控制器(返回对象实例)
+    /// </summary>
+    /// <param name="ctrlName"></param>
+    /// <returns></returns>
+    public T GetControllerByName<T>(string ctrlName) where T : IUIController
     {
-        ControllerT local = default(ControllerT);
+        T local = default(T);
         //if (this._controllerDic.HasKey(ctrlName))
         //{
         //    return (ControllerT)this._controllerDic.GetValue(ctrlName);
@@ -95,9 +100,28 @@ public class UIControllerManager
         return local;
 
     }
+    /// <summary>
+    /// 通过名字获取控制器（返回控制器接口类型）
+    /// </summary>
+    /// <param name="ctrlName"></param>
+    /// <returns></returns>
+    public IUIController GetControllerByName(string ctrlName)
+    {
+        return null;
+    }
+    /// <summary>
+    /// 创建控制器
+    /// </summary>
+    /// <param name="ctrlName"></param>
+    public void CreaterController(string ctrlName)
+    {
+
+    }
 }
 
-
+/// <summary>
+/// UI总管理：【打开/关闭界面逻辑：open/close->(组件实例)node出入栈->(消息)通知对应的controller处理数据->(消息)通知对应的view更新界面显示数据】
+/// </summary>
 public class UIManager : GameInterface
 {
     /// <summary>
