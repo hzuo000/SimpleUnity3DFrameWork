@@ -5,8 +5,24 @@ using UnityEngine;
 
 public class StageHUDController : UIControllerBase
 {
+    public override List<string> ViewList { get => new List<string>() {
+        UIComponentName.StageHUD,
+    }; }
+
+    public override string ControllerName { get => UIControllerName.StageHUDCtr; }
+
     protected override void AddObjectCompent(GObject gobj, string panelName, int sortingOrder)
     {
-        throw new System.NotImplementedException();
+        IUIView view = default;
+        switch (panelName)
+        {
+            case UIComponentName.StageHUD:
+                view = new StageHUDView();
+                break;
+        }
+        view.SetCtrl(this, panelName, gobj, sortingOrder);
+        view.Awake();
+        UIDict[panelName] = view;
+        
     }
 }

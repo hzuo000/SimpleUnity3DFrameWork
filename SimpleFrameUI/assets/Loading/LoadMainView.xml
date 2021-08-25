@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
+    <graph id="n3_qgxy" name="n3" xy="0,0" size="1080,1920" type="rect" fillColor="#ff003333">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
     <movieclip id="n0_guf8" name="n0" src="guf8x" fileName="Image/FireClip.jta" xy="852,1566" size="152,304">
       <relation target="" sidePair="right-right,bottom-bottom"/>
     </movieclip>
-    <text id="n1_guf8" name="n1" xy="315,1518" pivot="0.5,0.5" size="492,122" fontSize="51" align="center" vAlign="middle" autoSize="none" text="初始化……">
+    <text id="n1_guf8" name="n1" xy="290,1519" size="492,122" fontSize="51" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="初始化……">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </text>
+    <text id="n2_qgxy" name="Percent" xy="397,1642" size="254,98" fontSize="51" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="50%">
       <relation target="" sidePair="center-center,bottom-bottom"/>
     </text>
   </displayList>

@@ -164,7 +164,7 @@ public static class FilePath
 /// <summary>
 /// 存放ui的名字【包名_组件名】
 /// </summary>
-public static class UICompenentName
+public static class UIComponentName
 {
     public const string LoadingMainView = "Loading_LoadMainView";//开始游戏加载界面ui
     public const string MainUIMainView = "MainUI_MainView";//主界面ui

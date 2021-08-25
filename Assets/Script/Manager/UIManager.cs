@@ -77,25 +77,31 @@ public class PanelNode
 /// </summary>
 public class UIControllerManager
 {
+    private Dictionary<string, IUIController> controllerDic;// 所有控制器<名字，控制器>
+
+    private Dictionary<string, string> viewToControllerDic;//页面对应控制器名字<view名字，controller名字>
+
     private static UIControllerManager _this;
     public static UIControllerManager Inst { get => _this; }
 
     public UIControllerManager()
     {
         _this = this;
+        controllerDic = new Dictionary<string, IUIController>();
+        viewToControllerDic = new Dictionary<string, string>();
     }
     /// <summary>
     /// 通过名字获取控制器(返回对象实例)
     /// </summary>
     /// <param name="ctrlName"></param>
     /// <returns></returns>
-    public T GetControllerByName<T>(string ctrlName) where T : IUIController
+    public T GetControllerByName<T>(string ctrlName) where T : UIControllerBase
     {
-        T local = default(T);
-        //if (this._controllerDic.HasKey(ctrlName))
-        //{
-        //    return (ControllerT)this._controllerDic.GetValue(ctrlName);
-        //}
+        T local = default;
+        if (controllerDic.ContainsKey(ctrlName))
+        {
+            return controllerDic[ctrlName] as T;
+        }
         return local;
 
     }
@@ -106,16 +112,56 @@ public class UIControllerManager
     /// <returns></returns>
     public IUIController GetControllerByName(string ctrlName)
     {
+        if (controllerDic.ContainsKey(ctrlName))
+        {
+            return controllerDic[ctrlName];
+        }
+        return null;
+    }
+    /// <summary>
+    /// 通过类型获取控制器
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T GetController<T>() where T : IUIController
+    {
+        var it = controllerDic.GetEnumerator();
+        while (it.MoveNext())
+        {
+            IUIController controller = it.Current.Value;
+            if (controller.GetType()==typeof(T))
+            {
+                return (T)controller;
+            }
+        }
+        return default;
+    }
+    /// <summary>
+    /// 用view获得ctr名字
+    /// </summary>
+    /// <param name="viewName">页面名称</param>
+    /// <returns></returns>
+    public string GetControllerName(string viewName)
+    {
+        if (viewToControllerDic.ContainsKey(viewName))
+        {
+            return viewToControllerDic[viewName];
+        }
         return null;
     }
     /// <summary>
     /// 创建控制器
     /// </summary>
     /// <param name="ctrlName"></param>
-    public void CreaterController(string ctrlName)
+    public void CreateController<T>() where T: IUIController , new()
     {
-
+        IUIController ctr = new T();
+        controllerDic.Add(ctr.ControllerName, ctr);
+        ctr.Init((viewName,ctrName)=> {
+            viewToControllerDic.Add(viewName, ctrName);
+        });
     }
+    
 }
 
 /// <summary>
@@ -132,14 +178,30 @@ public class UIManager : GameInterface
     private const int intervalOrder = 500;//页面类型打开层级间隔
     private const int StepOrder = 2;//每打开一个页面向后增加的层级
 
-    private List<PanelNode> panelNodes;
-    private Dictionary<string, PanelNode> panelsDict;//<名称，实例>
+    private List<PanelNode> panelNodes;//UI栈
+    private Dictionary<string, PanelNode> panelsDict;//所有已经创建的界面<名称，实例>
     public override void StartUp()
     {
         panelNodes = new List<PanelNode>();
         panelsDict = new Dictionary<string, PanelNode>();
         UIController = new UIControllerManager();
+        InitController();
+        SetScreenSize();
+        ShowPanel(UIComponentName.LoadingMainView, UIType.Normal, UIMode.DoNothing);
         base.StartUp();
+    }
+    private void SetScreenSize()
+    {
+        GRoot.inst.SetContentScaleFactor(1080,1920, UIContentScaler.ScreenMatchMode.MatchWidthOrHeight);
+    }
+    /// <summary>
+    /// 初始化所有UI的控制器
+    /// </summary>
+    private void InitController()
+    {
+        UIController.CreateController<StartUpController>();
+        UIController.CreateController<MainUIController>();
+        UIController.CreateController<StageHUDController>();
     }
     /// <summary>
     /// 打开ui
@@ -224,7 +286,7 @@ public class UIManager : GameInterface
             panelNodes.Add(node);
         }
         //不需要返回的界面就不用放入栈
-        node.SetActive(true);
+        
     }
     /// <summary>
     /// 判断这个界面是不是需要返回
@@ -305,9 +367,19 @@ public class UIManager : GameInterface
     /// </summary>
     /// <param name="PanelName"></param>
     /// <param name="data">传递的数据</param>
-    private void ShowPanelEvent(string PanelName,object data)
+    private void ShowPanelEvent(string panelName,object data)
     {
-
+        if (!panelsDict.ContainsKey(panelName))
+        {
+            return;
+        }
+        PanelNode node = panelsDict[panelName];
+        IUIController controller = UIControllerManager.Inst.GetControllerByName(node.ctrlName);
+        if (controller!=null)
+        {
+            controller.ShowView(panelName, data);
+        }
+        node.SetActive(true);
     }
     /// <summary>
     /// 关闭界面触发的事件
@@ -315,7 +387,12 @@ public class UIManager : GameInterface
     /// <param name="closePanel"></param>
     private void ClosePanelEvent(PanelNode closePanel)
     {
-
+        IUIController controller = UIControllerManager.Inst.GetControllerByName(closePanel.ctrlName);
+        if (controller != null)
+        {
+            controller.HideView(closePanel.panelName);
+        }
+        closePanel.SetActive(false);
     }
 
 
@@ -328,22 +405,26 @@ public class UIManager : GameInterface
     /// <param name="OnFinish">创建完成后回调</param>
     private void CreatPanel(string panelName,UIType type,UIMode mode,Action<PanelNode> OnFinish)
     {
-        string ctrlName = panelName;//todo:控制器暂时和ui节点名一样
+        string ctrlName = UIControllerManager.Inst.GetControllerName(panelName);
+        if (ctrlName == null)
+        {
+            Debug.LogError("这个panel没有设置ctr");
+        }
         PanelNode node = new PanelNode(type, mode, ctrlName, panelName);
         string[] split = panelName.Split('_');
         if (UIPackage.GetByName(split[0])==null)//包没载入就载入包
-        {
+        {//todo：这里载入资源的方式暂时用resources
             UIPackage.AddPackage("FairyGUI/" + split[0]);
         }
         node.gGameobject = UIPackage.CreateObject(split[0], split[1]);
-        node.gGameobject.Center();
+        //node.gGameobject.Center();
         node.gGameobject.asCom.fairyBatching = true;
 
         node.gGameobject.asCom.MakeFullScreen();//全屏适配【请勿把容器锚点设为中央】
         panelsDict.Add(panelName, node);
-        IUIController uiCtrl = UIController.GetControllerByName<IUIController>(node.ctrlName);
+        IUIController uiCtrl = UIController.GetControllerByName(node.ctrlName);
         if (uiCtrl != null)
-        {
+        {//控制器通知页面创建
             uiCtrl.OnViewCreated(node.gGameobject, panelName, node.sortingOrder);
         }
         OnFinish?.Invoke(node);

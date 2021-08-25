@@ -48,71 +48,79 @@ public interface IUIController
 
 public abstract class UIControllerBase : IUIController
 {
-    
-    public List<string> ViewList { get; protected set; }
+    public abstract List<string> ViewList { get; }
 
-    public string ControllerName { get; protected set; }
+    public abstract string ControllerName { get;  }
 
     /// <summary>
     /// ui对应的页面
     /// </summary>
-    protected Dictionary<string, IUIView> mUIDict = new Dictionary<string, IUIView>();
+    protected Dictionary<string, IUIView> UIDict = new Dictionary<string, IUIView>();
 
     public  void FreshView(string panelName, string param)
     {
-        if (!mUIDict.ContainsKey(panelName))
+        if (!UIDict.ContainsKey(panelName))
         {
             return;
         }
 
-        mUIDict[panelName].FreshView(param);
+        UIDict[panelName].FreshView(param);
     }
 
     public  GObject GetGObject(string panelName, string param)
     {
-        if (!mUIDict.ContainsKey(panelName))
+        if (!UIDict.ContainsKey(panelName))
         {
             return null;
         }
 
-        return mUIDict[panelName].GetGObject(param);
+        return UIDict[panelName].GetGObject(param);
     }
 
     public  object GetObject2(string panelName, string param)
     {
-        if (!mUIDict.ContainsKey(panelName))
+        if (!UIDict.ContainsKey(panelName))
         {
             return null;
         }
 
-        return mUIDict[panelName].GetObject2(param);
+        return UIDict[panelName].GetObject2(param);
     }
 
     public virtual void DestroyView(string panelName)
     {
-        mUIDict[panelName].OnDestroy();
-        mUIDict[panelName] = null;
+        UIDict[panelName].OnDestroy();
+        UIDict[panelName] = null;
     }
 
     public virtual void HideView(string panelName)
     {
-        mUIDict[panelName].OnHide();
+        UIDict[panelName].OnHide();
     }
 
     public virtual void ShowView(string panelName, object data)
     {
-        mUIDict[panelName].OnShow(data);
+        UIDict[panelName].OnShow(data);
     }
 
     public void OnViewCreated(GObject panelObj, string panelName, int sortingOrder)
     {
         AddObjectCompent(panelObj, panelName, sortingOrder);
     }
+    /// <summary>
+    /// 添加控制的view（绑定对象）
+    /// </summary>
+    /// <param name="gobj"></param>
+    /// <param name="panelName"></param>
+    /// <param name="sortingOrder"></param>
     protected abstract void AddObjectCompent(GObject gobj, string panelName, int sortingOrder);
 
     public virtual void Init(Action<string, string> OnInitAction)
     {
-        
+        for (int i = 0; i < ViewList.Count; ++i) 
+        {
+            OnInitAction?.Invoke(ViewList[i], ControllerName);
+        }
     }
     /// <summary>
     /// 通过名字获取view
@@ -121,6 +129,10 @@ public abstract class UIControllerBase : IUIController
     /// <returns></returns>
     public IUIView GetView(string viewName)
     {
-        throw new NotImplementedException();
+        if (!UIDict.ContainsKey(viewName))
+        {
+            return UIDict[viewName];
+        }
+        return null;
     }
 }

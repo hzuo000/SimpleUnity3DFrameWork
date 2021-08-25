@@ -82,12 +82,12 @@ public abstract class UIViewBase : IUIView
         
     }
 
-    public void SetCtrl(IUIController ctrl, string name, GObject gobj, int sortingOrder)
+    public void SetCtrl(IUIController ctrl, string panelName, GObject gobj, int sortingOrder)
     {
         UICtrl = ctrl;
         gObject = gobj;
         this.sortingOrder = sortingOrder;
-        panelName = name;
+        this.panelName = panelName;
     }
     #endregion 接口
     /// <summary>
