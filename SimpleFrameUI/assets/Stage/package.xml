@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="geeesuk3">
   <resources>
-    <component id="guf80" name="StagHUD.xml" path="/" exported="true"/>
+    <component id="guf80" name="StageHUD.xml" path="/" exported="true"/>
     <image id="guf81" name="r3.png" path="/Image/"/>
   </resources>
   <publish name=""/>

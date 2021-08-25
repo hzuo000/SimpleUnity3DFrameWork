@@ -162,6 +162,24 @@ public static class FilePath
     
 }
 /// <summary>
+/// 存放ui的名字【包名_组件名】
+/// </summary>
+public static class UICompenentName
+{
+    public const string LoadingMainView = "Loading_LoadMainView";//开始游戏加载界面ui
+    public const string MainUIMainView = "MainUI_MainView";//主界面ui
+    public const string StageHUD = "Stage_StageHUD";//战斗场景主ui
+}
+/// <summary>
+/// ui控制器名称
+/// </summary>
+public static class UIControllerName
+{
+    public const string LoadingCtr = "LoadingController";//载入场景控制器
+    public const string MainUICtr = "MainUIController";//主ui控制器
+    public const string StageHUDCtr = "StageHUDController";//stageHUD控制器
+}
+/// <summary>
 /// 2D空间范围
 /// </summary>
 public struct Area2D
