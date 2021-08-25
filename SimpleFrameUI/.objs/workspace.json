@@ -1,18 +1,13 @@
 {
 	"backgroundColor": 6710886,
-	"test.device": "iPad Pro",
-	"libview.twoColumn": false,
 	"auxline1": true,
-	"libview.firstColumnWidth": 283,
 	"doc.openedDocs": [
 		"ui://gbwxu8yddy490",
 		"ui://gcvtw43vguf80",
 		"ui://geeesuk3guf80"
 	],
-	"test.orientation": "landscape",
 	"auxline2": true,
-	"libview.currentGroup": "",
-	"doc.activeDoc": "ui://gcvtw43vguf80",
+	"libview.twoColumn": false,
 	"libview.expandedNodes": [
 		"gcvtw43v",
 		"/",
@@ -25,5 +20,10 @@
 		"geeesuk3",
 		"/Image/"
 	],
+	"libview.currentGroup": "",
+	"test.orientation": "portriait",
+	"libview.firstColumnWidth": 283,
+	"test.device": "iPad Pro",
+	"doc.activeDoc": "ui://gcvtw43vguf80",
 	"canvasColor": 10066329
 }

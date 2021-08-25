@@ -233,6 +233,22 @@ public class UIManager : GameInterface
         }
     }
     /// <summary>
+    /// 刷新页面
+    /// </summary>
+    /// <param name="panelName"></param>
+    public void FreshView(string panelName,string data)
+    {
+        if (!panelsDict.ContainsKey(panelName))
+        {
+            return;
+        }
+        IUIController controller = UIControllerManager.Inst.GetControllerByName(panelName);
+        if (controller!=null)
+        {
+            controller.FreshView(panelName, data);
+        }
+    }
+    /// <summary>
     /// 关闭界面（返回上个界面）
     /// </summary>
     /// <param name="panelName"></param>
