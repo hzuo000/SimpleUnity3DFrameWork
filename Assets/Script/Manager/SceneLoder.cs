@@ -4,13 +4,13 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 /// <summary>
-/// 当前游戏有的场景
+/// 当前游戏有的场景名称
 /// </summary>
-public enum SceneName
+public static class SceneName
 {
-    StartUp,
-    MainUI,
-    Stage,
+    public const string StartUp = "StartUp";
+    public const string MainUI = "Main";
+    public const string Stage = "Stage";
 }
 public class SceneLoder : GameInterface
 {
@@ -27,6 +27,10 @@ public class SceneLoder : GameInterface
     {
         async = null;
         SceneManager.sceneLoaded += OnSceneLoaded;
+        GameManager.GameInitReadyAction += () =>
+        {
+            LoadScene(SceneName.MainUI);
+        };
         base.StartUp();
     }
 
@@ -35,21 +39,22 @@ public class SceneLoder : GameInterface
         SceneManager.sceneLoaded -= OnSceneLoaded;
         base.Close();
     }
-    public void LoadScene(SceneName _scene)
+    public void LoadScene(string _sceneName)
     {
-        StartCoroutine(StartLoadScene(_scene));
+        StartCoroutine(StartLoadScene(_sceneName));
+        GameManager.Observer.SendMessage(LocalMessage.OnSceneChange, new Message("oldSceneName", CurrentScene.name, "newSceneName", _sceneName));
     }
     /// <summary>
     /// 异步载入场景
     /// </summary>
     /// <param name="sceneName"></param>
     /// <returns></returns>
-    private IEnumerator StartLoadScene(SceneName sceneName)
+    private IEnumerator StartLoadScene(string sceneName)
     {
         //SceneManager.LoadScene((int)SceneName.Loading);
         //IsReadLoadScene = false;
         //yield return new WaitUntil(() => IsReadLoadScene);
-        async = SceneManager.LoadSceneAsync((int)sceneName);
+        async = SceneManager.LoadSceneAsync(sceneName);
         async.allowSceneActivation = false;
         while (async.progress < .9f)
         {

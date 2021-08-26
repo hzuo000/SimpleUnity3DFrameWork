@@ -11,7 +11,7 @@ public enum LocalMessage
 {
     Null=-1,
 
-    PlayerOnHit,//人被打了
+    OnSceneChange,//场景改变
 
 
     COUNT
@@ -23,10 +23,8 @@ public enum ComponentMessage
 {
     Null=-1,
 
-    PlayerStateChange,//人物状态改变【数据更新】
-    OnScreenRed,//ui屏幕闪红
-    OnDamageShow,//ui飘伤害数字
-
+    ClearCurrentUI,//清理当前场景所有UI
+    LoadNewSceneUI,//载入新场景的第一个UI
 
     COUNT
 }
@@ -54,42 +52,41 @@ public class MessageCenter : GameInterface
     private void InitMessageHandler()
     {
         StageRegisterFuncs = new Dictionary<LocalMessage, Action<Message>>() {
-            { LocalMessage.PlayerOnHit,HandleMSG_OnPlayerHit },
+            { LocalMessage.OnSceneChange,HandelMSG_OnSceneChange },
         };
 
     }
     /// <summary>
     /// 订阅消息[对象销毁时记得退订]
     /// </summary>
-    /// <param name="_msg"></param>
-    /// <param name="_func"></param>
-    public void RegisterHandler(List<ComponentMessage>_msgs, Action<Message> _func)
+    public void RegisterHandler(Dictionary<ComponentMessage,Action<Message>> registerMessages)
     {
         lock (LockObj)
         {
-            foreach (var msg in _msgs)
+            var it = registerMessages.GetEnumerator();
+            while (it.MoveNext())
             {
-                ComponentRegisterFuncs[msg] += _func;
+                var cur = it.Current;
+                ComponentRegisterFuncs[cur.Key] += cur.Value;
             }
         }
     }
     /// <summary>
     /// 退订消息
     /// </summary>
-    /// <param name="_msg"></param>
-    /// <param name="_func"></param>
-    public void UnsubscribeHandler(List<ComponentMessage> _msgs, Action<Message> _func)
+    public void UnsubscribeHandler(Dictionary<ComponentMessage, Action<Message>> registerMessages)
     {
         lock (LockObj)
         {
-            foreach (var msg in _msgs)
+            var it = registerMessages.GetEnumerator();
+            while (it.MoveNext())
             {
-                if (ComponentRegisterFuncs[msg] != null)
+                var cur = it.Current;
+                if (ComponentRegisterFuncs[cur.Key] != null)
                 {
-                    ComponentRegisterFuncs[msg] -= _func;
+                    ComponentRegisterFuncs[cur.Key] -= cur.Value;
                 }
             }
-
         }
 
     }
@@ -106,15 +103,13 @@ public class MessageCenter : GameInterface
         }
     }
     /// <summary>
-    /// 消息拆解：玩家被打
-    /// 1.状态改变
-    /// 2.屏幕变红
-    /// 3.飘伤害数字
+    /// 场景改变
+    /// 1.清空当前场景的UI
     /// </summary>
-    private void HandleMSG_OnPlayerHit(Message message)
+    /// <param name="message"></param>
+    private void HandelMSG_OnSceneChange(Message message)
     {
-        ComponentRegisterFuncs[ComponentMessage.PlayerStateChange]?.Invoke(message);
-        ComponentRegisterFuncs[ComponentMessage.OnScreenRed]?.Invoke(message);
-        ComponentRegisterFuncs[ComponentMessage.OnDamageShow]?.Invoke(message);
+        ComponentRegisterFuncs[ComponentMessage.ClearCurrentUI]?.Invoke(message);
+        ComponentRegisterFuncs[ComponentMessage.LoadNewSceneUI]?.Invoke(message);
     }
 }

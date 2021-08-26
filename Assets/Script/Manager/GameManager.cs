@@ -44,10 +44,10 @@ public class GameManager : MonoBehaviour
 
         _startSequence = new List<GameInterface>
         {//这里顺序是初始化顺序
+            Observer,
             UI,
             Factory,
             Record,
-            Observer,
             Scene,
             Audio,
         };

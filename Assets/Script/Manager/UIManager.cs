@@ -6,27 +6,42 @@ using System;
 
 public enum UIType
 {
+    /// <summary>
+    /// 常规页面【入栈】
+    /// </summary>
     Normal = 0,
 
-    //固定窗口
+    /// <summary>
+    /// 固定窗口(类似HUD)【不入栈】
+    /// </summary>
     Fixed,
 
-    //弹窗窗口
+    /// <summary>
+    /// 弹窗【不入栈】
+    /// </summary>
     PopUp,
 
 }
 
 public enum UIMode
 {
+    /// <summary>
+    /// 什么都不做【不入栈】
+    /// </summary>
     DoNothing,
 
-    // 闭其他界面
+    /// <summary>
+    /// 独占全屏，关闭其他界面【入栈】
+    /// </summary>
     HideOther,
-
-    // 点击返回按钮关闭当前,不关闭其他界面(需要调整好层级关系)
+    /// <summary>
+    /// 点击返回按钮关闭当前,不关闭其他界面(需要调整好层级关系)【入栈】
+    /// </summary>
     NeedBack,
 
-    // 关闭TopBar,关闭其他界面,不加入backSequence队列
+    /// <summary>
+    /// 关闭其他界面【不入栈】
+    /// </summary>
     NoNeedBack,
 }
 /// <summary>
@@ -186,6 +201,7 @@ public class UIManager : GameInterface
         panelsDict = new Dictionary<string, PanelNode>();
         UIController = new UIControllerManager();
         InitController();
+        InitAction();
         SetScreenSize();
         ShowPanel(UIComponentName.LoadingMainView, UIType.Normal, UIMode.DoNothing);
         base.StartUp();
@@ -202,6 +218,36 @@ public class UIManager : GameInterface
         UIController.CreateController<StartUpController>();
         UIController.CreateController<MainUIController>();
         UIController.CreateController<StageHUDController>();
+    }
+    private void InitAction()
+    {
+        GameManager.Observer.RegisterHandler(new Dictionary<ComponentMessage, Action<Message>>()
+        {
+            {ComponentMessage.ClearCurrentUI, HandelMSG_OnSceneUIRelease},
+            {ComponentMessage.LoadNewSceneUI, HandelMSG_OnLoadNewSceneUI},
+
+        }) ;
+    }
+    private void HandelMSG_OnSceneUIRelease(Message message) => ReleaseUIRoot();
+    private void HandelMSG_OnLoadNewSceneUI(Message message)
+    {
+        string newSceneName = default;
+        if (message.Contains("newSceneName"))
+        {
+            newSceneName = message["newSceneName"] as string;
+        }
+        switch (newSceneName)
+        {
+            case SceneName.StartUp:
+                ShowPanel(UIComponentName.LoadingMainView, UIType.Normal, UIMode.DoNothing);
+                break;
+            case SceneName.MainUI:
+                ShowPanel(UIComponentName.MainUIMainView, UIType.Normal, UIMode.HideOther);
+                break;
+            case SceneName.Stage:
+                ShowPanel(UIComponentName.StageHUD, UIType.Fixed, UIMode.DoNothing);
+                break;
+        }
     }
     /// <summary>
     /// 打开ui
@@ -312,9 +358,13 @@ public class UIManager : GameInterface
     private bool CheckIfNeedBack(PanelNode page)
     {
         if (page.type == UIType.Fixed || page.type == UIType.PopUp )
+        {
             return false;
+        }
         else if (page.mode == UIMode.NoNeedBack || page.mode == UIMode.DoNothing)
+        {
             return false;
+        }
         return true;
     }
     /// <summary>
@@ -445,7 +495,30 @@ public class UIManager : GameInterface
         }
         OnFinish?.Invoke(node);
     }
-
+    /// <summary>
+    /// 销毁当前存储的所有ui
+    /// </summary>
+    public void ReleaseUIRoot()
+    {
+        var it = panelsDict.GetEnumerator();
+        while (it.MoveNext())
+        {
+            PanelNode node = it.Current.Value;
+            node.gGameobject.Dispose();
+            node.SetActive(false);
+            IUIController controller = UIControllerManager.Inst.GetControllerByName(node.ctrlName);
+            if (controller!=null)
+            {
+                controller.DestroyView(node.panelName);
+            }
+            if (panelNodes.Contains(node))
+            {
+                panelNodes.Remove(node);
+            }
+        }
+        panelsDict.Clear();
+        panelNodes.Clear();
+    }
 
 
 }

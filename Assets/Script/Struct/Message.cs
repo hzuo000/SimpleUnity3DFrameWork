@@ -23,7 +23,7 @@ public class Message
     /// </summary>
     /// <param name="key">参数名</param>
     /// <returns></returns>
-    public bool Exist(string key)
+    public bool Contains(string key)
     {
         return MgsDict.ContainsKey(key);
     }

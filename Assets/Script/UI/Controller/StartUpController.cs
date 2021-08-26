@@ -25,8 +25,11 @@ public class StartUpController : UIControllerBase
         view.Awake();
         UIDict[panelName] = view;
     }
+
     public override void Init(Action<string, string> OnInitAction)
     {
         base.Init(OnInitAction);
+        
     }
+    
 }

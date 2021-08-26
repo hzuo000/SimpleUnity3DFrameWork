@@ -4,7 +4,7 @@
     <component id="dy490" name="MainView.xml" path="/" exported="true"/>
     <image id="guf81" name="b5.png" path="/Image/"/>
     <image id="guf82" name="b4.png" path="/Image/"/>
-    <component id="guf83" name="NormalBtn.xml" path="/"/>
+    <component id="guf83" name="NormalBtn.xml" path="/Button/"/>
   </resources>
   <publish name="MainUI"/>
 </packageDescription>

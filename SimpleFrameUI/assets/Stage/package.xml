@@ -3,6 +3,26 @@
   <resources>
     <component id="guf80" name="StageHUD.xml" path="/" exported="true"/>
     <image id="guf81" name="r3.png" path="/Image/"/>
+    <image id="mgpm2" name="i9.png" path="/Image/"/>
+    <image id="mgpm3" name="i8.png" path="/Image/"/>
+    <image id="mgpm4" name="i7.png" path="/Image/"/>
+    <image id="mgpm5" name="i6.png" path="/Image/"/>
+    <image id="mgpm6" name="i5.png" path="/Image/"/>
+    <image id="mgpm7" name="i4.png" path="/Image/"/>
+    <image id="mgpm8" name="i3.png" path="/Image/"/>
+    <image id="mgpm9" name="i2.png" path="/Image/"/>
+    <image id="mgpma" name="i1.png" path="/Image/"/>
+    <image id="mgpmb" name="i0.png" path="/Image/"/>
+    <image id="mgpmc" name="btnimage.png" path="/Image/"/>
+    <image id="mgpmd" name="8.png" path="/Image/"/>
+    <image id="mgpme" name="5.png" path="/Image/"/>
+    <image id="mgpmf" name="4.png" path="/Image/"/>
+    <image id="mgpmg" name="3.png" path="/Image/"/>
+    <image id="mgpmh" name="2.png" path="/Image/"/>
+    <image id="mgpmi" name="1.png" path="/Image/"/>
+    <image id="mgpmj" name="0.png" path="/Image/"/>
+    <component id="mgpml" name="BagButton.xml" path="/Button/"/>
+    <component id="mgpmm" name="BackBtn.xml" path="/Button/"/>
   </resources>
   <publish name=""/>
 </packageDescription>
