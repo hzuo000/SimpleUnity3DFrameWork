@@ -13,7 +13,7 @@ public class StartUpView : UIViewBase
     }
     public override void OnShow(object data)
     {
-        
+
     }
     private void InitAction()
     {

@@ -6,8 +6,7 @@ public enum LanguageType
 {
     NULL = -1,
 
-    //语言要从1开始排
-    CN = 1,//简体中文
+    CN = 0,//简体中文
 
 
     COUNT//
@@ -24,7 +23,7 @@ public class LanguageFactory : FactoryBase
         string _str = "";
         if (IDToInfoDic.ContainsKey(_nID))
         {
-            _str = Content[IDToInfoDic[_nID]][(int)GameManager.Record.systemRecord.Languagee];
+            _str = Content[IDToInfoDic[_nID]][(int)GameManager.Record.systemRecord.Languagee + 1];
         }
         return _str;
     }
