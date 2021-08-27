@@ -4,12 +4,11 @@
 + 跟unity版本无关，遇到版本可以忽略（也不要提交版本信息）
 
 ## Factory
-
-`GameManager.Factory.GetFactory<T>();//获取工厂`
-
-## UI
+```C#
+GameManager.Factory.GetFactory<T>();//获取工厂`
 ```
+## UI
+```C#
 public void OpenPanel(string panelName,UIType type,UIMode mode,object data = null);//打开ui界面
 public void ClosePanel(string panelName,object data = null);//关闭界面（返回上个界面）
-
 ```
