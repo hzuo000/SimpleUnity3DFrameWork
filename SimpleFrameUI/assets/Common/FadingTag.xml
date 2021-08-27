@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="473,100">
+  <displayList>
+    <graph id="n0_twl4" name="n0" xy="0,0" size="473,100" type="rect" fillColor="#80000000"/>
+    <text id="n1_twl4" name="Tips" xy="0,0" size="473,100" fontSize="42" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text="活动暂未开启"/>
+  </displayList>
+</component>

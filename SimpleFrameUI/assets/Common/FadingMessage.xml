@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" opaque="false">
+  <displayList>
+    <component id="n0_twl4" name="n0" src="twl40" fileName="FadingTag.xml" xy="539,960" pivot="0.5,0.5" anchor="true" touchable="false">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Alpha" target="n0_twl4" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="0" type="Scale" target="n0_twl4" tween="true" startValue="0.8,0.8" endValue="1,1" duration="6"/>
+    <item time="0" type="XY" target="n0_twl4" tween="true" startValue="526,1027" endValue="526,880" duration="12"/>
+    <item time="12" type="XY" target="n0_twl4" tween="true" startValue="526,880" endValue="526,867" duration="5" ease="Linear"/>
+    <item time="17" type="Alpha" target="n0_twl4" tween="true" startValue="1" endValue="0" duration="10" ease="Quad.In"/>
+  </transition>
+</component>

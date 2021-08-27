@@ -48,7 +48,17 @@ public class ObjectPool<T> where T : new()
     }
 }
 
-
+public static class Util
+{
+    public static void PlayFadingMessage(string tips)
+    {
+        if (GameManager.UI.IsPanelActive(UIComponentName.FadingView))
+        {
+            return;
+        }
+        GameManager.UI.OpenPanel(UIComponentName.FadingView, UIType.PopUp, UIMode.DoNothing, tips);
+    }
+}
 public static class Explore//扩展方法
 {
     /// <summary>
@@ -173,6 +183,7 @@ public static class UIComponentName
     public const string MainSelect = "MainUI_MainSelectLevel";
     public const string MainAbout = "MainUI_MainAbout";
     public const string MainSetting = "MainUI_MainSettingPanel";
+    public const string FadingView = "Common_FadingMessage";
 }
 /// <summary>
 /// ui控制器名称
@@ -182,6 +193,7 @@ public static class UIControllerName
     public const string LoadingCtr = "LoadingController";//载入场景控制器
     public const string MainUICtr = "MainUIController";//主ui控制器
     public const string StageHUDCtr = "StageHUDController";//stageHUD控制器
+    public const string TipsCtr = "TipsController";//消息弹窗控制器
 }
 /// <summary>
 /// 2D空间范围

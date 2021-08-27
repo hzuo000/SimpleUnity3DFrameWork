@@ -16,12 +16,13 @@ public class MainPageView : UIViewBase
         SelectBtn = Gcom.GetChild("Select").asButton;
         SelectBtn.title = "关卡选择";
         SelectBtn.onClick.Add(()=> {
-            GameManager.UI.ShowPanel(UIComponentName.MainSelect, UIType.Normal, UIMode.HideOther);
+            GameManager.UI.OpenPanel(UIComponentName.MainSelect, UIType.Normal, UIMode.HideOther);
         });
         SettingBtn = Gcom.GetChild("Setting").asButton;
         SettingBtn.title = "设置";
         SettingBtn.onClick.Add(()=> {
-            GameManager.UI.ShowPanel(UIComponentName.MainSetting, UIType.Normal, UIMode.NeedBack);
+            Util.PlayFadingMessage("啊大大大大");
+             //GameManager.UI.OpenPanel(UIComponentName.MainSetting, UIType.Normal, UIMode.NeedBack);
         });
     }
     public override void OnHide()

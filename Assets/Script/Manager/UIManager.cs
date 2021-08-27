@@ -199,13 +199,14 @@ public class UIManager : GameInterface
     private Dictionary<string, PanelNode> panelsDict;//所有已经创建的界面<名称，实例>
     public override void StartUp()
     {
+        UIConfig.defaultFont = "Microsoft YaHei";
         panelNodes = new List<PanelNode>();
         panelsDict = new Dictionary<string, PanelNode>();
         UIController = new UIControllerManager();
         InitController();
         InitAction();
         SetScreenSize();
-        ShowPanel(UIComponentName.LoadingMainView, UIType.Normal, UIMode.DoNothing);
+        OpenPanel(UIComponentName.LoadingMainView, UIType.Normal, UIMode.DoNothing);
         base.StartUp();
     }
     private void SetScreenSize()
@@ -220,6 +221,7 @@ public class UIManager : GameInterface
         UIController.CreateController<StartUpController>();
         UIController.CreateController<MainUIController>();
         UIController.CreateController<StageHUDController>();
+        UIController.CreateController<TipController>();
     }
     private void InitAction()
     {
@@ -241,14 +243,14 @@ public class UIManager : GameInterface
         switch (newSceneName)
         {
             case SceneName.StartUp:
-                ShowPanel(UIComponentName.LoadingMainView, UIType.Normal, UIMode.DoNothing);
+                OpenPanel(UIComponentName.LoadingMainView, UIType.Normal, UIMode.DoNothing);
                 break;
             case SceneName.MainUI:
-                ShowPanel(UIComponentName.MainUIMainView, UIType.Normal, UIMode.NeedBack);
-                ShowPanel(UIComponentName.MainHUD, UIType.Fixed, UIMode.DoNothing);
+                OpenPanel(UIComponentName.MainUIMainView, UIType.Normal, UIMode.NeedBack);
+                OpenPanel(UIComponentName.MainHUD, UIType.Fixed, UIMode.DoNothing);
                 break;
             case SceneName.Stage:
-                ShowPanel(UIComponentName.StageHUD, UIType.Fixed, UIMode.DoNothing);
+                OpenPanel(UIComponentName.StageHUD, UIType.Fixed, UIMode.DoNothing);
                 break;
         }
     }
@@ -259,7 +261,7 @@ public class UIManager : GameInterface
     /// <param name="type"></param>
     /// <param name="mode"></param>
     /// <param name="data"></param>
-    public void ShowPanel(string panelName,UIType type,UIMode mode,object data = null)
+    public void OpenPanel(string panelName,UIType type,UIMode mode,object data = null)
     {
         PanelNode node;
         if (panelsDict.ContainsKey(panelName))//创建过这个view
@@ -420,7 +422,7 @@ public class UIManager : GameInterface
 
                 PanelNode lastNode = panelNodes[panelNodes.Count - 1];
                 ClosePanelEvent(node);
-                ShowPanel(lastNode.panelName,lastNode.type,lastNode.mode, data);
+                OpenPanel(lastNode.panelName,lastNode.type,lastNode.mode, data);
                 return;
             }
         }
@@ -463,7 +465,22 @@ public class UIManager : GameInterface
         }
         closePanel.SetActive(false);
     }
-
+    /// <summary>
+    /// 判断一个ui有没有在显示
+    /// </summary>
+    /// <param name="panelName">ui名称</param>
+    /// <returns></returns>
+    public bool IsPanelActive(string panelName)
+    {
+        if (!panelsDict.ContainsKey(panelName))
+        {
+            return false;
+        }
+        else
+        {
+            return panelsDict[panelName] != null && panelsDict[panelName].IsActive();
+        }
+    }
 
     /// <summary>
     /// 创建UI界面

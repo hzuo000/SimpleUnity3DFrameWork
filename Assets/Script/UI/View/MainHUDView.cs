@@ -23,7 +23,7 @@ public class MainSettingView : UIViewBase
         SelectBtn = Gcom.GetChild("Select").asButton;
         SelectBtn.title = "关卡选择";
         SelectBtn.onClick.Add(() => {
-            GameManager.UI.ShowPanel(UIComponentName.MainSelect, UIType.Normal, UIMode.HideOther);
+            GameManager.UI.OpenPanel(UIComponentName.MainSelect, UIType.Normal, UIMode.HideOther);
         });
     }
     public override void OnHide()
@@ -56,7 +56,7 @@ public class MainSelectLevel : UIViewBase
         AboutBtn = Gcom.GetChild("ToAbout").asButton;
         AboutBtn.title = "关于";
         AboutBtn.onClick.Add(()=> {
-            GameManager.UI.ShowPanel(UIComponentName.MainAbout, UIType.Normal, UIMode.HideOther);
+            GameManager.UI.OpenPanel(UIComponentName.MainAbout, UIType.Normal, UIMode.HideOther);
         });
     }
     public override void OnHide()

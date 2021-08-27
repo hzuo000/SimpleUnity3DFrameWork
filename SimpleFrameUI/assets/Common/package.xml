@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="wigzsk0e">
+  <resources>
+    <component id="twl40" name="FadingTag.xml" path="/"/>
+    <component id="twl41" name="FadingMessage.xml" path="/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>
