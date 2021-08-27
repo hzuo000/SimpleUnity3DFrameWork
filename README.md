@@ -5,7 +5,7 @@
 
 ## Factory
 ```C#
-GameManager.Factory.GetFactory<T>();//获取工厂`
+public T GetFactory<T>() where T : FactoryBase//获取工厂
 ```
 ## UI
 ```C#
