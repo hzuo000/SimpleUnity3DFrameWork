@@ -34,7 +34,7 @@ public abstract class FactoryBase
 
         for (int i = 1; i < Content.Length; i++)
         {
-            if (Content[i][0] == "") continue;
+            if (Content[i].Length < 1 || Content[i][0] == "") continue;
 
             IDToInfoDic.Add(int.Parse(Content[i][0]), i);
         }

@@ -5,6 +5,11 @@
     <image id="guf81" name="b5.png" path="/Image/"/>
     <image id="guf82" name="b4.png" path="/Image/"/>
     <component id="guf83" name="NormalBtn.xml" path="/Button/"/>
+    <component id="twl44" name="MainAbout.xml" path="/" exported="true"/>
+    <component id="twl45" name="MainHUD.xml" path="/" exported="true"/>
+    <component id="twl46" name="MainSettingPanel.xml" path="/" exported="true"/>
+    <component id="twl47" name="MainSelectLevel.xml" path="/" exported="true"/>
+    <component id="twl48" name="BackGroundBtn.xml" path="/Button/"/>
   </resources>
   <publish name="MainUI"/>
 </packageDescription>

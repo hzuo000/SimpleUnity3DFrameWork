@@ -7,7 +7,7 @@ using System;
 public enum UIType
 {
     /// <summary>
-    /// 常规页面【入栈】
+    /// 常规页面【(可能)入栈】
     /// </summary>
     Normal = 0,
 
@@ -22,7 +22,9 @@ public enum UIType
     PopUp,
 
 }
-
+/// <summary>
+/// 当前UI的类型【会作用于打开下一个界面时】
+/// </summary>
 public enum UIMode
 {
     /// <summary>
@@ -31,16 +33,16 @@ public enum UIMode
     DoNothing,
 
     /// <summary>
-    /// 独占全屏，关闭其他界面【入栈】
+    /// 独占全屏，打开下个界面关闭前面栈里所有的界面【入栈】
     /// </summary>
     HideOther,
     /// <summary>
-    /// 点击返回按钮关闭当前,不关闭其他界面(需要调整好层级关系)【入栈】
+    /// 兼容界面，打开下个界面不关闭其他界面(需要调整好层级关系)【入栈】
     /// </summary>
     NeedBack,
 
     /// <summary>
-    /// 关闭其他界面【不入栈】
+    /// 关闭其他界面【不入栈】【todo：未实现】
     /// </summary>
     NoNeedBack,
 }
@@ -242,7 +244,8 @@ public class UIManager : GameInterface
                 ShowPanel(UIComponentName.LoadingMainView, UIType.Normal, UIMode.DoNothing);
                 break;
             case SceneName.MainUI:
-                ShowPanel(UIComponentName.MainUIMainView, UIType.Normal, UIMode.HideOther);
+                ShowPanel(UIComponentName.MainUIMainView, UIType.Normal, UIMode.NeedBack);
+                ShowPanel(UIComponentName.MainHUD, UIType.Fixed, UIMode.DoNothing);
                 break;
             case SceneName.Stage:
                 ShowPanel(UIComponentName.StageHUD, UIType.Fixed, UIMode.DoNothing);
@@ -351,7 +354,7 @@ public class UIManager : GameInterface
         
     }
     /// <summary>
-    /// 判断这个界面是不是需要返回
+    /// 判断这个界面是不是需要入栈
     /// </summary>
     /// <param name="page"></param>
     /// <returns></returns>

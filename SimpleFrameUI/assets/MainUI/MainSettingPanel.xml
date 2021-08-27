@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <component id="n1_twl4" name="BackBtn" src="twl48" fileName="Button/BackGroundBtn.xml" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <graph id="n2_twl4" name="n2" xy="184,458" size="712,1080" type="rect" lineColor="#ffffffff" fillColor="#ffcccccc">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </graph>
+    <text id="n3_twl4" name="n3" xy="403,537" size="260,71" fontSize="47" align="center" vAlign="middle" ubb="true" autoSize="none" text="设置">
+      <relation target="n2_twl4" sidePair="center-center,top-top"/>
+    </text>
+    <component id="n4_twl4" name="Select" src="guf83" fileName="Button/NormalBtn.xml" xy="453,1350">
+      <relation target="n2_twl4" sidePair="center-center,bottom-bottom"/>
+    </component>
+  </displayList>
+</component>

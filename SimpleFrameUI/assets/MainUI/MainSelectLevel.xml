@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920">
+  <displayList>
+    <graph id="n3_twl4" name="n3" xy="0,0" size="1080,1920" type="rect" fillColor="#ffff9999">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <text id="n0_twl4" name="n0" xy="241,181" size="597,121" fontSize="71" align="center" vAlign="middle" autoSize="none" text="关卡选择">
+      <relation target="" sidePair="center-center,top-top"/>
+    </text>
+    <component id="n1_twl4" name="ToAbout" src="guf83" fileName="Button/NormalBtn.xml" xy="830,1382">
+      <relation target="" sidePair="right-right,top-bottom"/>
+    </component>
+    <component id="n2_twl4" name="BackBtn" src="guf83" fileName="Button/NormalBtn.xml" xy="41,1749">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+    </component>
+  </displayList>
+</component>

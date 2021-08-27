@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (numReady > lastReady)
                 {
-                    //Debug.Log("加载进度：" + numReady + "/" + numModules);
+                    Debug.Log("加载进度：" + numReady + "/" + numModules);
                     GameInitNumAction?.Invoke(numReady, numModules);
                 }
                 yield return new WaitForSeconds(0.3f);

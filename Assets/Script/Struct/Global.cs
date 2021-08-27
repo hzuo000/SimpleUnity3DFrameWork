@@ -169,6 +169,10 @@ public static class UIComponentName
     public const string LoadingMainView = "Loading_LoadMainView";//开始游戏加载界面ui
     public const string MainUIMainView = "MainUI_MainView";//主界面ui
     public const string StageHUD = "Stage_StageHUD";//战斗场景主ui
+    public const string MainHUD = "MainUI_MainHUD";
+    public const string MainSelect = "MainUI_MainSelectLevel";
+    public const string MainAbout = "MainUI_MainAbout";
+    public const string MainSetting = "MainUI_MainSettingPanel";
 }
 /// <summary>
 /// ui控制器名称

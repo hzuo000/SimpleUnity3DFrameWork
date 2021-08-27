@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1080,1920">
   <displayList>
-    <text id="n1_guf8" name="n1" xy="341,430" size="398,116" fontSize="80" align="center" vAlign="middle" autoSize="none" text="游戏名字">
-      <relation target="" sidePair="center-center,middle-middle"/>
-    </text>
-    <text id="n2_mgpm" name="n2" xy="747,1849" size="308,44" fontSize="33" align="center" vAlign="middle" autoSize="none" text="V0.1.1285">
-      <relation target="" sidePair="right-right,bottom-bottom"/>
-    </text>
-    <component id="n5_mgpm" name="StartBtn" src="guf83" fileName="NormalBtn.xml" xy="453,1192">
+    <graph id="n7_twl4" name="n7" xy="0,0" size="1080,1920" group="n8_twl4" type="rect" fillColor="#ff3366cc">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n5_mgpm" name="StartBtn" src="guf83" fileName="Button/NormalBtn.xml" xy="453,1192" group="n8_twl4">
       <relation target="" sidePair="center-center,middle-middle"/>
     </component>
+    <text id="n1_guf8" name="n1" xy="341,430" size="398,116" group="n8_twl4" fontSize="80" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="游戏名字">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <component id="n9_twl4" name="Select" src="guf83" fileName="Button/NormalBtn.xml" xy="453,1349" group="n8_twl4">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n10_twl4" name="Setting" src="guf83" fileName="Button/NormalBtn.xml" xy="832,183" group="n8_twl4">
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <group id="n8_twl4" name="n8" xy="0,0" size="1080,1920"/>
   </displayList>
 </component>

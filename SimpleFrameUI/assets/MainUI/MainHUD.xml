@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1080,1920" opaque="false">
+  <displayList>
+    <text id="n0_twl4" name="n0" xy="860,1828" size="196,63" fontSize="38" vAlign="middle" autoSize="none" text="V0.1.2156">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </text>
+    <text id="n3_twl4" name="n3" xy="21,31" size="331,70" fontSize="41" vAlign="middle" autoSize="none" text="UID:100145426"/>
+  </displayList>
+</component>
