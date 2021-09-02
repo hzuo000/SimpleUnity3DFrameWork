@@ -50,6 +50,10 @@ public class ObjectPool<T> where T : new()
 
 public static class Util
 {
+    /// <summary>
+    /// 飘提示文字
+    /// </summary>
+    /// <param name="tips"></param>
     public static void PlayFadingMessage(string tips)
     {
         if (GameManager.UI.IsPanelActive(UIComponentName.FadingView))
@@ -64,7 +68,7 @@ public static class Explore//扩展方法
     /// <summary>
     /// 把字符串中所有的数字转整型[过滤掉除数字字符外的所有字符]
     /// </summary>
-    /// <param name="_tString"></param>
+    /// <param name="_tString">字符串（注意可能转出的大小不要超过2^31-1）</param>
     /// <returns></returns>
     public static int ToInt(this string _tString)
     {
@@ -80,9 +84,14 @@ public static class Explore//扩展方法
                 id += temp * (int)Math.Pow(10, index++);
             }
         }
+
         return id;
     }
-
+    /// <summary>
+    /// 字符串转整型数组
+    /// </summary>
+    /// <param name="_tString">字符串用“，”分隔</param>
+    /// <returns></returns>
     public static List<int> ToInts(this string _tString)
     {
         List<int> res = new List<int>();

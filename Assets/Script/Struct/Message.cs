@@ -18,6 +18,11 @@ public class Message
             MgsDict.Add((string)args[i - 1], args[i]);
         }
     }
+ 
+    public Message()
+    {
+        MgsDict = new Dictionary<string, object>();
+    }
     /// <summary>
     /// 是否存在某参数[构造后使用]
     /// </summary>

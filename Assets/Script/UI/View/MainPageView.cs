@@ -21,8 +21,8 @@ public class MainPageView : UIViewBase
         SettingBtn = Gcom.GetChild("Setting").asButton;
         SettingBtn.title = "设置";
         SettingBtn.onClick.Add(()=> {
-            Util.PlayFadingMessage("啊大大大大");
-             //GameManager.UI.OpenPanel(UIComponentName.MainSetting, UIType.Normal, UIMode.NeedBack);
+            //Util.PlayFadingMessage("啊大大大大");
+             GameManager.UI.OpenPanel(UIComponentName.MainSetting, UIType.Normal, UIMode.NeedBack);
         });
     }
     public override void OnHide()
